@@ -2,34 +2,61 @@
 // Declare variable(s)
 // Put objects in an array
 var randomImage = new Object();
-
+randomImage.imageArray = [];
 randomImage.randNum = function(min,max) {
-  return Math.floor(Math.random() * (max - min) + parseInt(min));
+  return Math.floor(Math.random() * (max - 1) + 1);
 }
 randomImage.rankArray = ['image1', 'image2', 'image3'];
-randomImage.imageArray = ['bag', 'banana', 'boots', 'chair', 'cthulhu', 'dragon', 'pen', 'scissors', 'shark', 'sweep', 'unicorn', 'usb', 'water_can', 'wine_glass'];
+randomImage.imageArray.push('img/bag.jpg');
+randomImage.imageArray.push('img/banana.jpg');
+randomImage.imageArray.push('img/boots.jpg');
+randomImage.imageArray.push('img/chair.jpg');
+randomImage.imageArray.push('img/cthulhu.jpg');
+randomImage.imageArray.push('img/dragon.jpg');
+randomImage.imageArray.push('img/pen.jpg');
+randomImage.imageArray.push('img/scissors.jpg');
+randomImage.imageArray.push('img/shark.jpg');
+randomImage.imageArray.push('img/sweep.jpg');
+randomImage.imageArray.push('img/unicorn.jpg');
+randomImage.imageArray.push('img/usb.jpg');
+randomImage.imageArray.push('img/water_can.jpg');
+randomImage.imageArray.push('img/wine_glass.jpg');
 randomImage.maxImages = 14;
+randomImage.doFunction = [image1, image2, image3];
 
 
-// rankArray.push(this);
+
 //Put the random number in a function
 //Generate a random #
-
-
 function randNum(min, max) {
-  return Math.random() * (maxImages - 1) + parseInt(1);
+  return Math.random() * (this.randomImage.maxImages - 1) + 1;
   console.log(random.Image.randNum);
-
   }
 
+this.randomImage.imageArray = image1;
 
 
+//Do this two more times with if != else
+
+function randNum(min, max) {
+  return Math.random() * (this.randomImage.maxImages - 1) + 1;
+  if (randomImage.imageArray === image1) {
+  } else {
+    return Math.random() * (this.randomImage.maxImages - 1) + 1;
+
+this.randomImage.imageArray = image2;
+  }}
+
+  function randNum(min, max) {
+    return Math.random() * (this.randomImage.maxImages - 1) + 1;
+    if (randomImage.imageArray === image1 || randomImage.imageArray === image2) {
+    } else {
+      return Math.random() * (this.randomImage.maxImages - 1) + 1;
+
+  this.randomImage.imageArray = image3;
+    }}
 
 
-//
-// //Do this two more times
-// //if != el.first else run the function again
-//
 // //Get three objects and display them
 
 var randomImage = new Image();
@@ -41,9 +68,9 @@ img.onload = function() {
   div.appendChild(image3);
 };
 
-img.src = 'img/';
-//
-//
+img.src = this.randomImage.imageArray
+
+
 // //Use an event handler
 function(displayThree)() {
   var elVote = document.getElementById('VOTE');
