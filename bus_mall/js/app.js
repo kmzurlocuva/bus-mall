@@ -8,14 +8,14 @@ var products = [];
 //   return Math.floor(Math.random() * (max - 1) + 1);
 // }
 function Product (name, path) {
-  this.bag = name;
+  this.name = name;
   this.path = path;
   this.tally = 0;
   this.views = 0;
   // console.log("tally in the Product function is a..." + typeof(this.tally));
   // console.log("'this' in the Product func is: " + this);
   products.push(this);
-  totalClicks = 0;
+
 }
 
 
@@ -39,11 +39,13 @@ var counter = {
   leftObj: null,
   midObj: null,
   rightObj: null,
+  totalVotes: 0,
 
   leftEl: document.getElementById('image1'),
   midEl: document.getElementById('image2'),
   rightEl: document.getElementById('image3'),
   resultsEl: document.getElementById('results'),
+  tableEl: document.getElementById('list'),
 
   randNum: function() {
     return Math.floor(Math.random() * products.length);
@@ -52,55 +54,87 @@ var counter = {
 
 
   getRandomImage: function() {
-    var randNum1 = counter.randNum();
-    var randNum2 = counter.randNum();
-    var randNum3 = counter.randNum();
-    console.log("get random image" + randNum1)
+    counter.leftObj = products[counter.randNum()];
+    counter.midObj = products[counter.randNum()];
+    counter.rightObj = products[counter.randNum()];
+    // console.log("get random image" + randNum1)
 
-    if (counter.leftObj === counter.midObj || counter.leftObj === counter.rightObj || counter.rightObj === counter.midObj) {
-      counter.getRandomImage();
-
-
-    counter.leftObj = products[randNum1];
-    counter.leftEl.src = counter.leftObj.path;
-    counter.leftEl.id = counter.leftObj.name;
-
-    counter.midObj = products[randNum2];
-    counter.midEl.src = counter.midObj.path;
-    counter.midEl.id = counter.midObj.name;
-
-    counter.rightObj = products[randNum3];
-    counter.rightEl.src = counter.rightObj.path;
-    counter.rightEl.id = counter.rightObj.name;
-  }
-}
-  results: function() {
-    if (counter.totalClicks % 15 === 0) {
-      counter.resultsEl.hidden = false;
-      }
+    if (counter.leftObj === counter.midObj || counter.leftObj === counter.rightObj || counter.rightObj === counter.midObj) { counter.getRandomImage();
     }
 
 
 
+    // counter.leftObj = products[];
+    counter.leftEl.src = counter.leftObj.path;
+    counter.leftEl.id = counter.leftObj.name;
+
+    // counter.midObj = products[randNum2];
+    counter.midEl.src = counter.midObj.path;
+    counter.midEl.id = counter.midObj.name;
+
+    // counter.rightObj = products[randNum3];
+    counter.rightEl.src = counter.rightObj.path;
+    counter.rightEl.id = counter.rightObj.name;
+  },
+
+showResults: function() {
+    if (counter.totalVotes % 15 === 0) {
+      counter.resultsEl.hidden = false;
+      counter.tableEl.hidden = false;
+    } else {
+      counter.resultsEl.hidden = true;
+    };
+  },
+
+  renderList: function() {
+    for (var i = 0; i < products.length; i++) {
+    products[i].render();
+    // console.log(products[i].name)
+  }
+
+}};
+
+
 //Register a 'submit'
 counter.leftEl.addEventListener('click', function() {
-  counter.leftEl.tally += 1;
-  counter.leftEl.totalClicks += 1;
-  // counter.getRandomImage();
-})
+  counter.leftObj.tally += 1;
+  counter.totalVotes += 1;
+  counter.showResults();
+  console.log(counter.leftObj.name + ' has ' + counter.leftObj.tally);
+  counter.getRandomImage();
+});
 
 counter.midEl.addEventListener('click', function() {
-  counter.midEl.tally += 1;
-  counter.midEl.totalClicks += 1;
-  // counter.getRandomImage();
-  })
-counter.rightEl.addEventListener('click', function() {
-  counter.rightEl.tally += 1;
-  counter.rightEl.totalClicks += 1;
-  // counter.getRandomImage();
-  results();
-  getRandomImage();
+  counter.midObj.tally += 1;
+  counter.totalVotes += 1;
+  counter.showResults();
+  console.log(counter.midObj.name + ' has ' + counter.midObj.tally);
+
+  counter.getRandomImage();
 });
+counter.rightEl.addEventListener('click', function() {
+  counter.rightObj.tally += 1;
+  counter.totalVotes += 1;
+  counter.showResults();
+  console.log(counter.rightObj.name + ' has ' + counter.rightObj.tally);
+  counter.getRandomImage();
+  // getRandomImage();
+});
+
+var button = document.getElementById('results');
+button.addEventListener('click', function(){
+  counter.renderList();
+});
+
+Product.prototype.render = function() {
+  var tableEl = document.getElementById('list');
+  var liEl = document.createElement('li');
+  liEl.textContent = this.name + ' has ' + this.tally;
+  tableEl.appendChild(liEl);
+
+
+};
+
 counter.getRandomImage();
 
 

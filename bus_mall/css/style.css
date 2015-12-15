@@ -1,8 +1,26 @@
 @import url("skeleton.css");
 @import url("normalize.css");
 
-.article {
+/*#CCC0AB: secondary background
+  #7F786B: tertiary background
+  #7F6F51: optional font color (brown)
+*/
+
+
+body {
+  background-color: transparent;
+  font-family: 'Arimo', sans-serif;
+}
+
+header {
+  background-color: #FFB129;
   text-align: center;
+  font-family: 'Arimo', sans-serif;
+}
+
+article {
+  text-align: center;
+  font-family: 'Arimo', sans-serif;
 }
 
 .image1 {
