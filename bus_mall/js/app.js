@@ -2,7 +2,8 @@
 // Declare variable(s)
 // Put objects in an array
 var randomImage = new Object();
-products = [];
+var products = [];
+
 // randomImage.randNum = function(min,max) {
 //   return Math.floor(Math.random() * (max - 1) + 1);
 // }
@@ -10,10 +11,13 @@ function Product (name, path) {
   this.bag = name;
   this.path = path;
   this.tally = 0;
+  this.views = 0;
   // console.log("tally in the Product function is a..." + typeof(this.tally));
   // console.log("'this' in the Product func is: " + this);
   products.push(this);
+  totalClicks = 0;
 }
+
 
 var bag = new Product('bag', 'img/bag0.jpg');
 var banana = new Product('banana', 'img/banana0.jpg');
@@ -32,16 +36,17 @@ var wine_glass = new Product('wine_glass', 'img/wine_glass0.jpg');
 
 
 var counter = {
-  left: null,
-  mid: null,
-  right: null,
+  leftObj: null,
+  midObj: null,
+  rightObj: null,
 
   leftEl: document.getElementById('image1'),
   midEl: document.getElementById('image2'),
   rightEl: document.getElementById('image3'),
+  resultsEl: document.getElementById('results'),
 
   randNum: function() {
-    return Math.floor(Math.random() * (products.length));
+    return Math.floor(Math.random() * products.length);
     // console.log(random.Image.randNum);
   },
 
@@ -50,46 +55,53 @@ var counter = {
     var randNum1 = counter.randNum();
     var randNum2 = counter.randNum();
     var randNum3 = counter.randNum();
-    // console.log(randNum1)
+    console.log("get random image" + randNum1)
 
-    counter.left = products[randNum1];
-    counter.leftEl.src = counter.left.path;
-    counter.leftEl.id = counter.left.name;
+    if (counter.leftObj === counter.midObj || counter.leftObj === counter.rightObj || counter.rightObj === counter.midObj) {
+      counter.getRandomImage();
 
-    counter.mid = products[randNum2];
-    counter.midEl.src = counter.mid.path;
-    counter.midEl.id = counter.mid.name;
 
-    counter.right = products[randNum3];
-    counter.rightEl.src = counter.right.path;
-    counter.rightEl.id = counter.right.name;
+    counter.leftObj = products[randNum1];
+    counter.leftEl.src = counter.leftObj.path;
+    counter.leftEl.id = counter.leftObj.name;
+
+    counter.midObj = products[randNum2];
+    counter.midEl.src = counter.midObj.path;
+    counter.midEl.id = counter.midObj.name;
+
+    counter.rightObj = products[randNum3];
+    counter.rightEl.src = counter.rightObj.path;
+    counter.rightEl.id = counter.rightObj.name;
   }
-
-
 }
-counter.getRandomImage();
-//Use an event handler
+  results: function() {
+    if (counter.totalClicks % 15 === 0) {
+      counter.resultsEl.hidden = false;
+      }
+    }
+
+
 
 //Register a 'submit'
 counter.leftEl.addEventListener('click', function() {
-  counter.randNum().tally += 1;
-  console.log(this.tally);
-  console.log(typeof(this.tally));
-  console.log(this);
-  counter.getRandomImage();
+  counter.leftEl.tally += 1;
+  counter.leftEl.totalClicks += 1;
+  // counter.getRandomImage();
 })
+
 counter.midEl.addEventListener('click', function() {
-  counter.randNum().tally += 1;
-  console.log(this);
-  counter.getRandomImage();
-})
+  counter.midEl.tally += 1;
+  counter.midEl.totalClicks += 1;
+  // counter.getRandomImage();
+  })
 counter.rightEl.addEventListener('click', function() {
-  counter.randNum1().tally += 1;
-  console.log(this);
-  counter.getRandomImage();
+  counter.rightEl.tally += 1;
+  counter.rightEl.totalClicks += 1;
+  // counter.getRandomImage();
+  results();
+  getRandomImage();
 });
-
-
+counter.getRandomImage();
 
 
 //After further analysis, you realize that you'll need the following domain models:
