@@ -102,6 +102,7 @@ counter.leftEl.addEventListener('click', function() {
   counter.showResults();
   console.log(counter.leftObj.name + ' has ' + counter.leftObj.tally);
   counter.getRandomImage();
+  counter.showResults.innerHTML = ""
 });
 
 counter.midEl.addEventListener('click', function() {
@@ -109,8 +110,8 @@ counter.midEl.addEventListener('click', function() {
   counter.totalVotes += 1;
   counter.showResults();
   console.log(counter.midObj.name + ' has ' + counter.midObj.tally);
-
   counter.getRandomImage();
+  counter.showResults.innerHTML = ""
 });
 counter.rightEl.addEventListener('click', function() {
   counter.rightObj.tally += 1;
@@ -118,12 +119,14 @@ counter.rightEl.addEventListener('click', function() {
   counter.showResults();
   console.log(counter.rightObj.name + ' has ' + counter.rightObj.tally);
   counter.getRandomImage();
+  counter.showResults.innerHTML = ""
   // getRandomImage();
 });
 
 var button = document.getElementById('results');
 button.addEventListener('click', function(){
   counter.renderList();
+  'results'.innerHTML = "";
 });
 
 Product.prototype.render = function() {
@@ -131,7 +134,7 @@ Product.prototype.render = function() {
   var liEl = document.createElement('li');
   liEl.textContent = this.name + ' has ' + this.tally;
   tableEl.appendChild(liEl);
-
+  'results'.innerHTML = "";
 
 };
 
