@@ -3,6 +3,21 @@
 // Put objects in an array
 var randomImage = new Object();
 var products = [];
+var data = {
+  labels: [],
+  datasets: [
+    {
+      label: "Total Votes",
+      fillColor: "rgba(220,220,220,0.2)",
+      strokeColor: "rgba(220,220,220,1)",
+      pointColor: "rgba(220,220,220,1)",
+      pointHighlightFill: "#fff",
+      pointHighlightStroke: "rgba(220,220,220,1)",
+      data: []
+    }
+  ]
+};
+
 
 // randomImage.randNum = function(min,max) {
 //   return Math.floor(Math.random() * (max - 1) + 1);
@@ -12,6 +27,8 @@ function Product (name, path) {
   this.path = path;
   this.tally = 0;
   this.views = 0;
+  data.labels.push(name)
+  // data.datasets[0].data.push();
   // console.log("tally in the Product function is a..." + typeof(this.tally));
   // console.log("'this' in the Product func is: " + this);
   products.push(this);
@@ -40,12 +57,15 @@ var counter = {
   midObj: null,
   rightObj: null,
   totalVotes: 0,
+  barChart: null,
+
 
   leftEl: document.getElementById('image1'),
   midEl: document.getElementById('image2'),
   rightEl: document.getElementById('image3'),
   resultsEl: document.getElementById('results'),
-  tableEl: document.getElementById('list'),
+  // tableEl: document.getElementById('list'),
+  ctx: document.getElementById('resultsTable'),
 
   randNum: function() {
     return Math.floor(Math.random() * products.length);
@@ -80,7 +100,7 @@ var counter = {
 showResults: function() {
     if (counter.totalVotes % 15 === 0) {
       counter.resultsEl.hidden = false;
-      counter.tableEl.hidden = false;
+      // counter.barChart = new Chart(ctx).Bar(data);
     } else {
       counter.resultsEl.hidden = true;
     };
@@ -94,6 +114,25 @@ showResults: function() {
 
 }};
 
+
+counter.resultsEl.addEventListener('click', function() {
+// var resultsEl = document.getElementById('results');
+ for (var i = 0; i < products.length; i++) {
+     data.datasets[0].data[i] = products[i].tally;
+   }
+   var ctx = document.getElementById('resultsTable').getContext('2d');
+   var barChart = new Chart(ctx).Bar(data);
+
+ }),
+
+// showButton: function() {
+//   products.resultsButton.hidden = false;
+//   products.resultsButton.addEvent('click', function() {
+//     counter.resultsButton.hidden = true;
+//     counter.barChart = new Chart(counter.ctx).Bar(data);
+//   })
+// },
+// }
 
 //Register a 'submit'
 counter.leftEl.addEventListener('click', function() {
@@ -121,19 +160,18 @@ counter.rightEl.addEventListener('click', function() {
   // getRandomImage();
 });
 
-var button = document.getElementById('results');
-button.addEventListener('click', function(){
-  counter.renderList();
+// button.addEventListener('click', function(){
+//   counter.renderList();
+//
+// });
 
-});
+// Product.prototype.render = function() {
+//   var tableEl = document.getElementById('list');
+//   var liEl = document.createElement('li');
+//   liEl.textContent = this.name + ' has ' + this.tally;
+//   tableEl.appendChild(liEl);
 
-Product.prototype.render = function() {
-  var tableEl = document.getElementById('list');
-  var liEl = document.createElement('li');
-  liEl.textContent = this.name + ' has ' + this.tally;
-  tableEl.appendChild(liEl);
-
-};
+// };
 
 counter.getRandomImage();
 
