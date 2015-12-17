@@ -3,6 +3,7 @@
 // Put objects in an array
 var randomImage = new Object();
 var products = [];
+var barChart;
 var data = {
   labels: [],
   datasets: [
@@ -18,17 +19,12 @@ var data = {
   ]
 };
 
-
-// randomImage.randNum = function(min,max) {
-//   return Math.floor(Math.random() * (max - 1) + 1);
-// }
 function Product (name, path) {
   this.name = name;
   this.path = path;
   this.tally = 0;
   this.views = 0;
   data.labels.push(name)
-  // data.datasets[0].data.push();
   // console.log("tally in the Product function is a..." + typeof(this.tally));
   // console.log("'this' in the Product func is: " + this);
   products.push(this);
@@ -57,7 +53,7 @@ var counter = {
   midObj: null,
   rightObj: null,
   totalVotes: 0,
-  barChart: null,
+  // barChart: null,
 
 
   leftEl: document.getElementById('image1'),
@@ -100,7 +96,6 @@ var counter = {
 showResults: function() {
     if (counter.totalVotes % 15 === 0) {
       counter.resultsEl.hidden = false;
-      // counter.barChart = new Chart(ctx).Bar(data);
     } else {
       counter.resultsEl.hidden = true;
     };
@@ -116,12 +111,13 @@ showResults: function() {
 
 
 counter.resultsEl.addEventListener('click', function() {
-// var resultsEl = document.getElementById('results');
+  data.datasets[0].data = [];
  for (var i = 0; i < products.length; i++) {
      data.datasets[0].data[i] = products[i].tally;
+
    }
    var ctx = document.getElementById('resultsTable').getContext('2d');
-   var barChart = new Chart(ctx).Bar(data);
+   barChart = new Chart(ctx).Bar(data);
 
  }),
 
@@ -141,7 +137,6 @@ counter.leftEl.addEventListener('click', function() {
   counter.showResults();
   console.log(counter.leftObj.name + ' has ' + counter.leftObj.tally);
   counter.getRandomImage();
-
 });
 
 counter.midEl.addEventListener('click', function() {
@@ -157,13 +152,7 @@ counter.rightEl.addEventListener('click', function() {
   counter.showResults();
   console.log(counter.rightObj.name + ' has ' + counter.rightObj.tally);
   counter.getRandomImage();
-  // getRandomImage();
 });
-
-// button.addEventListener('click', function(){
-//   counter.renderList();
-//
-// });
 
 // Product.prototype.render = function() {
 //   var tableEl = document.getElementById('list');
@@ -174,9 +163,3 @@ counter.rightEl.addEventListener('click', function() {
 // };
 
 counter.getRandomImage();
-
-
-//After further analysis, you realize that you'll need the following domain models:
-
-  //A set of Product objects to manage all the attributes and behaviors around the product photos... hmm... how to make multiple objects easily?
-  //A single ranker object to manage all the attributes and behaviors around a visitor's product-ranking experience.
