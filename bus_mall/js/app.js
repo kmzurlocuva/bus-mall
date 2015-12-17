@@ -96,6 +96,7 @@ var counter = {
 showResults: function() {
     if (counter.totalVotes % 15 === 0) {
       counter.resultsEl.hidden = false;
+
     } else {
       counter.resultsEl.hidden = true;
     };
@@ -113,13 +114,15 @@ showResults: function() {
 counter.resultsEl.addEventListener('click', function() {
   data.datasets[0].data = [];
  for (var i = 0; i < products.length; i++) {
-     data.datasets[0].data[i] = products[i].tally;
+     var setLocal = JSON.stringify(products[i]);
+     localStorage.setItem(setLocal, 'click');
 
+     data.datasets[0].data[i] = products[i].tally;
    }
    var ctx = document.getElementById('resultsTable').getContext('2d');
    barChart = new Chart(ctx).Bar(data);
 
- }),
+ });
 
 // showButton: function() {
 //   products.resultsButton.hidden = false;
@@ -161,5 +164,9 @@ counter.rightEl.addEventListener('click', function() {
 //   tableEl.appendChild(liEl);
 
 // };
+
+if (localStorage = true) {
+  JSON.parse(localStorage.getItem(products));
+};
 
 counter.getRandomImage();
