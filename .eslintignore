@@ -1,0 +1,10 @@
+README.md
+**.html
+**.css
+.gitignore
+bus_mall/css/**
+bus_mall/img/**
+bus_mall/js/chart.js
+.DS_Store
+.eslintrc
+.eslintignore
