@@ -8,12 +8,12 @@ var data = {
   labels: [],
   datasets: [
     {
-      label: "Total Votes",
-      fillColor: "rgba(220,220,220,0.2)",
-      strokeColor: "rgba(220,220,220,1)",
-      pointColor: "rgba(220,220,220,1)",
-      pointHighlightFill: "#fff",
-      pointHighlightStroke: "rgba(220,220,220,1)",
+      label: 'Total Votes',
+      fillColor: 'rgba(220,220,220,0.2)',
+      strokeColor: 'rgba(220,220,220,1)',
+      pointColor: 'rgba(220,220,220,1)',
+      pointHighlightFill: '#fff',
+      pointHighlightStroke: 'rgba(220,220,220,1)',
       data: []
     }
   ]
@@ -24,7 +24,7 @@ function Product (name, path) {
   this.path = path;
   this.tally = 0;
   this.views = 0;
-  data.labels.push(name)
+  data.labels.push(name);
   // console.log("tally in the Product function is a..." + typeof(this.tally));
   // console.log("'this' in the Product func is: " + this);
   products.push(this);
@@ -93,36 +93,35 @@ var counter = {
     counter.rightEl.id = counter.rightObj.name;
   },
 
-showResults: function() {
+  showResults: function() {
     if (counter.totalVotes % 15 === 0) {
       counter.resultsEl.hidden = false;
 
     } else {
       counter.resultsEl.hidden = true;
-    };
+    }
   },
 
   renderList: function() {
     for (var i = 0; i < products.length; i++) {
-    products[i].render();
+      products[i].render();
     // console.log(products[i].name)
-  }
-
-}};
+    }
+  }};
 
 
 counter.resultsEl.addEventListener('click', function() {
   data.datasets[0].data = [];
  for (var i = 0; i < products.length; i++) {
-     var setLocal = JSON.stringify(products[i]);
-     localStorage.setItem(setLocal, 'click');
+   var setLocal = JSON.stringify(products[i]);
+   localStorage.setItem(setLocal, 'click');
 
-     data.datasets[0].data[i] = products[i].tally;
-   }
-   var ctx = document.getElementById('resultsTable').getContext('2d');
-   barChart = new Chart(ctx).Bar(data);
+   data.datasets[0].data[i] = products[i].tally;
+ }
+  var ctx = document.getElementById('resultsTable').getContext('2d');
+  barChart = new Chart(ctx).Bar(data);
 
- });
+});
 
 // showButton: function() {
 //   products.resultsButton.hidden = false;
@@ -165,8 +164,8 @@ counter.rightEl.addEventListener('click', function() {
 
 // };
 
-if (localStorage = true) {
+if (localStorage === true) {
   JSON.parse(localStorage.getItem(products));
-};
+}
 
 counter.getRandomImage();
